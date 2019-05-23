@@ -26,7 +26,7 @@
           <div class="swiper-slide" v-for="(pages,index) in categorysArr" :key="index">
             <a href="javascript:" class="link_to_food" v-for="(data,index) in pages" :key="index">
               <div class="food_container">
-                <img :src="baseImageUrl+data.image_url">
+                <img :src="baseImageUrl + data.image_url">
               </div>
               <span>{{data.title}}</span>
             </a>
@@ -49,22 +49,64 @@
 </template>
 <script>
   import Swiper from 'swiper'
-  import 'swiper//dist/css/swiper.min.css'
+  import 'swiper/dist/css/swiper.min.css'
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
   import ShopList from '../../components/ShopList/ShopList.vue'
+  import {mapState} from 'vuex'
   export default {
+    data() {
+      return {
+        baseImageUrl: 'https://fuss10.elemecdn.com'
+      }
+    },
     components: {
       HeaderTop,
       ShopList
     },
     mounted () {
-      new Swiper('.swiper-container', {
-        autoplay: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        }
-      })
+      this.$store.dispatch('getCategorys')
+      this.$store.dispatch('getShops')
+    },
+    computed: {
+      ...mapState(['address', 'categorys', 'userInfo']),
+      /*
+        根据categorys数组生成一个二维数组
+        小数组中的元素个数最大是8
+       */
+      categorysArr() {
+        const {categorys} = this
+        // 准备二维空数组
+        const arr = []
+        let minArr = []
+        // 遍历categorys
+        categorys.forEach(c => {
+          // 如果当前小数组已经满了，创建一个新数组
+          if(minArr.length === 8) {
+            minArr = []
+          }
+          // 如果minArr是空的，将小数组保存到大数组中
+          if(minArr.length === 0) {
+            arr.push(minArr)
+          }
+          // 将当前分类保存到小数组中
+          minArr.push(c)
+        })
+        return arr
+      }
+    },
+    watch: {
+      categorys (value) {
+        // 界面更新之后立即使用轮播图
+        this.$nextTick(() => {
+          new Swiper('.swiper-container', {
+            autoplay: true,
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true
+            }
+          })
+        })
+      }
     }
   }
 </script>

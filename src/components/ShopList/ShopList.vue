@@ -4,7 +4,7 @@
       <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index" @click="$router.push('/shop')">
         <a>
           <div class="shop_left">
-            <img class="shop_img" :src="baseImgUrl + shop.image_path">
+            <img class="shop_img" v-lazy="baseImgUrl + shop.image_path">
           </div>
           <div class="shop_right">
             <section class="shop_detail_header">
@@ -19,14 +19,14 @@
               <section class="shop_rating_order_left">
                 <Star :score="shop.rating" :size="24"></Star>
                 <div class="rating_section">
-                  {{shop.rating}}
+                  {{ shop.rating }}
                 </div>
                 <div class="order_section">
                   月售{{shop.recent_order_num}}单
                 </div>
               </section>
               <section class="shop_rating_order_right">
-                <span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>
+                <!--<span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>-->
               </section>
             </section>
             <section class="shop_distance">
@@ -49,9 +49,23 @@
   </div>
 </template>
 <script>
-
+import {mapState} from 'vuex'
+import Star from '../Star/Star.vue'
 export default {
-
+  data() {
+    return {
+      baseImgUrl: 'https://raw.githubusercontent.com/W-Qing/Vue-MintShop/master/mintshop-client/src/components/ShopList/images/'
+    }
+  },
+  created() {
+    // console.log(shops)
+  },
+  components: {
+    Star
+  },
+  computed: {
+    ...mapState(['shops'])
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -116,14 +130,14 @@ export default {
                width: 200px;
                color: #333333;
                font-size: 16px;
-               line-height: 16;
+               line-height: 16px;
                font-weight: 700;
              }
              &::before {
                content: '品牌';
                display: inline-block;
                font-size: 11px;
-               line-height: 11;
+               line-height: 11px;
                color: #333333;
                background-color: #ffd930;
                padding: 2px 2px;

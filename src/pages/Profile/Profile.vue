@@ -4,18 +4,18 @@
         <HeaderTop title="我的"></HeaderTop>
         <section class="profile-number">
           <!-- 利用router-link实现到Login组件的跳转 -->
-          <!--<router-link :to="userInfo._id ? '/userinfo': '/login'" class="profile-link">-->
-          <router-link to="/login" class="profile-link">
+          <router-link :to="userInfo._id ? '/userinfo': '/login'" class="profile-link">
+          <!--<router-link to="/login" class="profile-link">-->
             <div class="profile_image">
               <i class="iconfont icon-yonghuming"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top" v-if="!userInfo.phone" >{{userInfo.name || '登录/注册'}}</p>
+              <p class="user-info-top" v-if="!userInfo.phone" >{{ userInfo.name || '登录/注册' }}</p>
               <p>
               <span class="user-icon">
                 <i class="iconfont icon-msnui-tel icon-mobile"></i>
               </span>
-                <span class="icon-mobile-number">{{userInfo.phone || '暂无绑定手机号'}}</span>
+                <span class="icon-mobile-number">{{ userInfo.phone || '暂无绑定手机号' }}</span>
               </p>
             </div>
             <span class="arrow">
@@ -92,17 +92,37 @@
           </a>
         </section>
         <section class="profile_my_order border-1px">
-          <mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">退出登录</mt-button>
+          <mt-button type="danger" style="width: 100%" v-if="userInfo._id" @click="logout">退出账号</mt-button>
         </section>
       </section>
     </div>
 </template>
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+  import { mapState } from 'vuex'
+  import { MessageBox, Toast } from 'mint-ui'
   export default {
     components: {
       HeaderTop
     },
+    computed: {
+      ...mapState(['userInfo'])
+    },
+    methods: {
+      logout() {
+        MessageBox.confirm('确认退出吗?').then(
+          action => {
+            // 请求退出
+            this.$store.dispatch('logout')
+            Toast("退出成功")
+          },
+          action => {
+            console.log('取消登录')
+          }
+        )
+      }
+    },
+
   }
 </script>
 <style lang="less" scoped>
@@ -298,7 +318,7 @@
           height: 20px;
           >.iconfont {
             margin-left: -10px;
-            font-size: 30px;
+            font-size: 23px;
           }
           .icon-dingdan {
             color: #02a774;
@@ -316,7 +336,7 @@
         .my_order_div {
           width: 100%;
           border-bottom: 1px solid #f1f1f1;
-          padding: 18px 10px 18px 0;
+          padding: 18px 10px 18px 5px;
           font-size: 16px;
           color: #333333;
           display: flex;

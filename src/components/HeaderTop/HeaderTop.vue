@@ -3,7 +3,7 @@
     <!-- 插槽是父组件与子组件的通讯方式，子组件中的slot可以显示父组件传递给子组件的内容 -->
     <slot name="left"></slot>
     <span class="header_title">
-      <span class="header_title_text ellipsis">{{title}}</span>
+      <span class="header_title_text ellipsis">{{ title }}</span>
     </span>
     <slot name="right"></slot>
   </header>
@@ -14,7 +14,7 @@ export default {
   // 外部组件传递给此组件的属性
   props: {
     title: String
-  }
+  },
 }
 </script>
 

@@ -4,8 +4,8 @@
       <div class="login_header">
         <h2 class="login_logo">Mint外卖</h2>
         <div class="login_header_title">
-          <a href="javascript:;" :class="{on: loginWay}" @click="loginWay=true">短信登录</a>
-          <a href="javascript:;" :class="{on: !loginWay}" @click="loginWay=false">密码登录</a>
+          <a href="javascript:;" :class="{on: loginWay}" @click="loginWay = true">短信登录</a>
+          <a href="javascript:;" :class="{on: !loginWay}" @click="loginWay = false">密码登录</a>
         </div>
       </div>
       <div class="login_content">
@@ -13,7 +13,7 @@
           <div :class="{on: loginWay}">
             <section class="login_message">
               <input type="tel" maxlength="11" placeholder="手机号" v-model="phone">
-              <button :disabled="!rightPhone" class="get_verification" :class="{right_phone:rightPhone}" @click.prevent="getCode">{{computeTime>0 ? `(${computeTime}s)已发送` : '获取验证码'}}</button>
+              <button :disabled="!rightPhone" class="get_verification" :class="{right_phone:rightPhone}" @click.prevent="getCode">{{computeTime>0 ? `已发送(${computeTime}s)` : '获取验证码'}}</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
@@ -51,12 +51,122 @@
         <i class="iconfont icon-arrow-left"></i>
       </a>
     </div>
-    <!--<AlertTip :alertText="alertText" v-show="alertShow" @closeTip="closeTip"/>-->
+    <AlertTip :alertText="alertText" v-show="alertShow" @closeTip="closeTip"/>
   </section>
 </template>
 <script>
+  import AlertTip from '../../components/AlertTip/AlertTip.vue'
+  import {reqPwdLogin, reqSendCode, reqSmsLogin} from '../../api'
 export default {
-
+  data() {
+    return {
+      loginWay: true, // true代表短信登陆, false代表密码
+      phone: '', // 手机号
+      computeTime: 0, // 计时器的起始秒数
+      showPwd: false, // 密码框的显示隐藏
+      name: '', // 用户名
+      pwd: '', // 密码
+      code: '', // 手机验证码
+      captcha: '', // 图文验证码
+      alertShow: false, // 控制显示提示框
+      alertText: '', // 提示框内容
+    }
+  },
+  computed: {
+    rightPhone() {
+      // 对手机号进行正则判断返回布尔值
+      return /^1\d{10}$/.test(this.phone)
+    }
+  },
+  methods: {
+    // 异步获取验证码
+    async getCode() {
+      // 30秒倒计时
+      if(!this.computeTime) {
+        this.computeTime = 30
+        this.intervalId = setInterval(() => {
+          this.computeTime--
+          if(this.computeTime <= 0) {
+            clearInterval(this.intervalId)
+          }
+        },1000);
+        const reuslt = await reqSendCode(this.phone)
+        if(reuslt.code === 1) {//  发送验证码失败
+          // 显示提示
+          this.showAlert(reuslt.msg)
+          // 停止定时器
+          if(this.computeTime) {
+            this.computeTime = 0
+            clearInterval(this.intervalId);
+            this.intervalId = undefined
+          }
+        }
+      }
+    },
+    showAlert(alertText) { //开启认证框
+      this.alertShow = true
+      this.alertText = alertText
+    },
+    closeTip() { // 关闭认证框
+      this.alertShow = false
+      this.alertText = ''
+    },
+    // 异步登录
+    async login() {
+      let result
+      // 前台表单认证
+      if(this.loginWay) { // 短信登录
+        const {phone, code} = this
+        if(!this.rightPhone) {
+          this.showAlert("您输入的手机号不正确")
+          return
+        } else if(!/^\d{6}$/.test(code)) {
+          this.showAlert("验证码不符合规格")
+          return
+        }
+        // 发起ajax请求短信登录
+        result = await reqSmsLogin(phone, code)
+      } else { // 密码登录
+        const {name, pwd, captcha} = this
+        if(!name) {
+          this.showAlert("用户名必须指定")
+          return
+        } else if(!pwd) {
+          this.showAlert("密码必须指定")
+          return
+        } else if(!captcha) {
+          this.showAlert("验证码必须指定")
+          return
+        }
+        // 发起ajax请求密码登录
+        result = await reqPwdLogin({name, pwd, captcha})
+      }
+      // 停止定时器
+      if(this.computeTime) {
+        this.computeTime = 0
+        clearInterval(this.intervalId);
+        this.intervalId = undefined
+      }
+      if(result.code === 0) { // 成功
+        const user = result.data
+        // 将user保存到vuex的state
+        this.$store.dispatch('recordUser', user)
+        // 去个人中心界面
+        this.$router.replace('/profile')
+      } else {
+        // 显示新的图片验证码
+        this.getCaptcha()
+        const msg = result.msg
+        this.showAlert(msg)
+      }
+    },
+    getCaptcha() {
+      this.$refs.captcha.src = "http://localhost:4000/captcha?" + Date.now();
+    }
+  },
+  components: {
+    AlertTip
+  }
 }
 </script>
 <style lang="less">
@@ -184,12 +294,32 @@ export default {
               margin-top: 12px;
               color: #999;
               font-size: 14px;
-              line-height: 20;
+              line-height: 20px;
               >a {
                 color: #02a774;
               }
             }
           }
+          .login_submit {
+            display: block;
+            width: 100%;
+            height: 42px;
+            margin-top: 30px;
+            border-radius: 4px;
+            background: #4cd96f;
+            color: #ffffff;
+            text-align: center;
+            font-size: 16px;
+            line-height: 42px;
+            border: 0;
+          }
+        }
+        .about_us {
+          display: block;
+          font-size: 12px;
+          margin-top: 20px;
+          text-align: center;
+          color: #999999;
         }
       }
       .go_back {

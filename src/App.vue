@@ -7,11 +7,20 @@
 
 <script>
     import FooterGuide from "./components/FooterGuide/FooterGuide.vue"
+    import {mapActions} from 'vuex'
     export default {
-        name: "App",
-        components: {
-          FooterGuide
-        }
+        // name: "App",
+      async mounted() {
+        // this.$store.dispatch('getAddress')
+        this.getAddress()
+        this.getUseInfo()
+      },
+      components: {
+        FooterGuide
+      },
+      methods: {
+        ...mapActions(['getAddress', 'getUseInfo'])
+      }
     }
 </script>
 

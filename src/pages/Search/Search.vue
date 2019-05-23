@@ -25,13 +25,41 @@
         </router-link>
       </ul>
     </section>
-
     <div class="search_none" v-else>很抱歉！无搜索结果</div>
   </section>
 </template>
 <script>
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+  import { mapState } from 'vuex'
   export default {
+    data() {
+      return {
+        keyword:"",
+        noSearchShops: false, // 搜索结果
+        imgBaseUrl: 'http://cangdu.org:8001/img/', //图片基础路径
+      }
+    },
+    computed: {
+      ...mapState(['searchShops'])
+    },
+    methods: {
+      search() {
+        const keyword = this.keyword.trim()
+        // 判断keyword是否有数据
+        if(keyword) {
+          this.$store.dispatch('searchShops', keyword)
+        }
+      }
+    },
+    watch: {
+      searchShops (value) {
+        if (!value.length) { // 没有数据
+          this.noSearchShops = true
+        } else { // 有数据
+          this.noSearchShops = false
+        }
+      }
+    },
     components: {
       HeaderTop
     }

@@ -2,17 +2,49 @@
     <div>
       <section class="order">
         <HeaderTop title="订单列表"></HeaderTop>
-        <section class="order_no_login">
+        <section class="order_no_login"  v-show="showOrder">
           <img src="./images/order/person.png">
           <h3>登录后查看外卖订单</h3>
-          <button>立即登陆</button>
+          <button @click="goProfile('/login')">立即登陆</button>
+        </section>
+        <section class="order_no_login"  v-show="!showOrder">
+          <img src="./images/order/person.png">
+          <h3>一个订单都没有喔~</h3>
+          <button @click="goProfile('/msite')">去逛逛</button>
         </section>
       </section>
     </div>
 </template>
 <script>
+  import { mapState } from 'vuex'
   import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
   export default {
+    data() {
+      return {
+        showOrder: true
+      }
+    },
+    mounted() {
+     this._ShowOrder()
+    },
+    computed: {
+      ...mapState(['userInfo'])
+    },
+    methods: {
+      _ShowOrder() {
+        if(this.userInfo._id) {
+          this.showOrder = !this.showOrder
+        }
+      },
+      goProfile(url) {
+        this.$router.push({path: url});
+      }
+    },
+    watch: {
+      userInfo() {
+        this._ShowOrder()
+      }
+    },
     components: {
       HeaderTop
     }
