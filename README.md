@@ -61,4 +61,4 @@
           minArr.push(c)
          })
 ``` 
-* 后续有空再写以下MD说明最后解释权归（廖建山所有）
+* 后续有空再写以下MD说明(https://github.com/LIAOJIANS/Shan_project)欢迎下载
