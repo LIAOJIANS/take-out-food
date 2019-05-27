@@ -14,6 +14,9 @@
 <script>
     import { mapGetters } from 'vuex'
     export default {
+      props: {
+        isShowBGC : Number
+      },
       data() {
         return {
         }
@@ -21,8 +24,12 @@
        computed: {
          ...mapGetters(['totalPrice']),
          TotalPrice() {
-           const { totalPrice } = this
-           return totalPrice + 4 - 1.5 + 2 + 4
+           const { totalPrice,isShowBGC } = this
+           if(isShowBGC === 0) {
+             return totalPrice  - 1.5 + 2 + 4
+           } else {
+             return totalPrice  - 1.5
+           }
          }
        }
     }
@@ -30,10 +37,13 @@
 
 <style lang="less" scoped>
   .totalPrice {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     background-color: #fff;
-    padding: 18px 5px;
+    padding: 12px 5px;
     .total {
       line-height: 43px;
       span {

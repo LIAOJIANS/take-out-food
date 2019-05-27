@@ -47,18 +47,18 @@
 > const arr = [];<br>
 > let minArr = [];
 * 遍历categorys
->``` 
->         categorys.forEach(c => {
->           // 如果当前小数组已经满了，创建一个新数组
->           if(minArr.length === 8) {
->             minArr = []
->           }
->           // 如果minArr是空的，将小数组保存到大数组中
->           if(minArr.length === 0) {
->            arr.push(minArr)
->          }
->          // 将当前分类保存到小数组中
->          minArr.push(c)
->       })
-* 返回数组
-> return arr
+``` 
+         categorys.forEach(c => {
+           // 如果当前小数组已经满了，创建一个新数组
+           if(minArr.length === 8) {
+             minArr = []
+           }
+          // 如果minArr是空的，将小数组保存到大数组中
+           if(minArr.length === 0) {
+            arr.push(minArr)
+          }
+          // 将当前分类保存到小数组中
+          minArr.push(c)
+         })
+``` 
+* 后续有空再写以下MD说明最后解释权归（廖建山所有）

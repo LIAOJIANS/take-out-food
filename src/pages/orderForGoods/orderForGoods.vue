@@ -4,6 +4,10 @@
         <HeaderTop :title="'提交订单'"/>
         <span class="go_back iconfont icon-arrow-left" @click="$router.back()"></span>
       </div>
+      <div class="option">
+        <span @click="isShowBGC = 0" :class="{on: isShowBGC === 0}">送货上门</span>
+        <span @click="isShowBGC = 1" :class="{on: isShowBGC === 1}">自取</span>
+      </div>
       <div class="deliveryAddress">
         <div class="addAddress">
           <p>新增收货地址</p>
@@ -19,8 +23,8 @@
 
         </div>
       </div>
-      <OrderList/>
-      <OrderTotalPrice/>
+      <OrderList :isShowBGC = "isShowBGC"/>
+      <OrderTotalPrice :isShowBGC = "isShowBGC"/>
     </div>
 </template>
 
@@ -33,6 +37,7 @@
           return {
             H: 0,
             M: 0,
+            isShowBGC: 0
           }
         },
         mounted() {
@@ -66,7 +71,8 @@
     background-color: #f3f3f3;
     height: 100%;
     .HeaderTop {
-      position: relative;
+      position: fixed;
+      top: 0;
       height: 45px;
       .go_back {
         position: absolute;
@@ -78,8 +84,24 @@
         transform: translate(0, -50%);
       }
     }
+    .option {
+      margin: 45px 10px 0 10px;
+      height: 45px;
+      background-color: #fff;
+      display: flex;
+      justify-content: space-between;
+      span {
+        display: block;
+        width: 50%;
+        line-height: 45px;
+        text-align: center;
+        &.on {
+          background-color: #f8f8f8;
+        }
+      }
+    }
     .deliveryAddress {
-      margin: 0 10px;
+      margin: 0px 10px 0 10px;
       background-color: #fff;
       box-shadow: 0 0 3px 0px rgba(0, 0, 0, 0.2);
       .addAddress {

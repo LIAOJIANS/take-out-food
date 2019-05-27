@@ -1,8 +1,8 @@
 <template>
     <div class="orderList">
       <div class="title">
-        <p>三饭QBB</p>
-        <p class="send">AIB专送</p>
+        <p>{{info.address}}</p>
+        <p class="send">{{info.description}}</p>
       </div>
       <div class="goodList">
         <ul>
@@ -23,11 +23,11 @@
       </div>
       <div class="cost">
         <ul class="sendCost">
-          <li>
+          <li v-if="isShowBGC === 0">
             <span>包装费</span>
             <span>￥2</span>
           </li>
-          <li>
+          <li v-if="isShowBGC === 0">
             <span>配送费</span>
             <span>￥4</span>
           </li>
@@ -60,17 +60,24 @@
 <script>
   import { mapState, mapGetters } from 'vuex'
   export default {
+    props: {
+      isShowBGC : Number
+    },
     data() {
       return {
       }
     },
     computed: {
-      ...mapState(['cartFoods']),
+      ...mapState(['cartFoods', 'info']),
       ...mapGetters(['totalPrice']),
       // 总价格
       TotalPrice() {
-        const { totalPrice } = this
-        return totalPrice + 4 - 1.5 + 2 + 4
+        const { totalPrice,isShowBGC } = this
+        if(isShowBGC === 0) {
+          return totalPrice  - 1.5 + 2 + 4
+        } else {
+          return totalPrice  - 1.5
+        }
       },
       // 计算价格
       Total() {
@@ -82,7 +89,7 @@
 
 <style lang="less">
 .orderList {
-  margin: 10px 10px 0px 10px;
+  margin: 10px 10px 81px 10px;
   background-color: #fff;
   .title {
     padding: 16px 10px;
