@@ -26,7 +26,7 @@
                 </div>
               </section>
               <section class="shop_rating_order_right">
-                <!--<span class="delivery_style delivery_right">{{shop.delivery_mode.text}}</span>-->
+                <span class="delivery_style delivery_right">{{ shop.text }}</span>
               </section>
             </section>
             <section class="shop_distance">

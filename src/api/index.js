@@ -4,20 +4,21 @@
 import ajax from './ajax'
 // const BASE_URL = 'http://local:4000'
 const BASE_URL = '/api'
-const Ba = 'http://10.12.226.10'
+// const Ba = 'http://10.12.226.10'
+const Ba = 'http://110.64.211.210'
 /**
  * 获取地址信息(根据经纬度串)
  * 这个接口的经纬度参数是在url路径里的，没有query参数
  * http://10.12.226.10/waimaiapi/index2/position/position/geohash/
  */
-export const reqAddress = geohash => ajax(`${BASE_URL}/position/${geohash}`)
-// export const reqAddress = geohash => ajax(`${ Ba}/waimaiapi/index2/position/position/geohash/${geohash}`)
+// export const reqAddress = geohash => ajax(`${BASE_URL}/position/${geohash}`)
+export const reqAddress = geohash => ajax(`${ Ba}/takeout/waimaiapi/index2/position/position/geohash/${geohash}`)
 /**
  * 获取 msite 页面食品分类列表
  * http://10.12.226.10/waimaiapi/index2/index_category/index_category
  */
-// export const reqCategorys = () => ajax(Ba + '/waimaiapi/index2/index_category/index_category')
-export const reqCategorys = () => ajax(BASE_URL + '/index_category')
+export const reqCategorys = () => ajax(Ba + '/takeout/waimaiapi/index2/index_category/index_category')
+// export const reqCategorys = () => ajax(BASE_URL + '/index_category')
 
 /**
  * 获取 msite 商铺列表(根据query参数：经纬度)
@@ -26,16 +27,20 @@ export const reqCategorys = () => ajax(BASE_URL + '/index_category')
  * http://10.12.226.10/waimaiapi/index2/llist/shops
  * http://10.12.226.10/waimaiapi/index2/shops/shops
  */
-export const reqShops = ({latitude, longitude}) => ajax(BASE_URL + '/shops', {latitude, longitude})
-// export const reqShops = ({latitude, longitude}) => ajax(Ba + '/waimaiapi/index2/llist/shops', {latitude, longitude})
+// export const reqShops = ({latitude, longitude}) => ajax(BASE_URL + '/shops', {latitude, longitude})
+export const reqShops = ({latitude, longitude}) => ajax(Ba + '/takeout/waimaiapi/index2/llist/shops', {latitude, longitude})
 /**
  * 根据经纬度和关键字搜索商铺列表
  */
 export const reqSearchShop = (geohash, keyword) => ajax(BASE_URL + '/search_shops', {geohash, keyword})
 /**
  * 账号密码登录
+ *
+ * http://10.34.62.29/takeout/waimaiapi/index2/login_pwd/login_pwd
+ *
  */
 export const reqPwdLogin = ({name, pwd, captcha}) => ajax(BASE_URL + '/login_pwd', {name, pwd, captcha}, 'POST')
+// export const reqPwdLogin = ({name, pwd, captcha}) => ajax('http://110.64.211.210/takeout/waimaiapi/index2/login_pwd/login_pwd', {name, pwd, captcha}, 'POST')
 /**
  * 获取短信验证码
  */

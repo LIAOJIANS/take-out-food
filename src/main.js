@@ -21,6 +21,17 @@ Vue.use(VueLazyLoad,{
   loading
 })
 
+// 载入高德地图
+import  VueAMap from 'vue-amap'
+Vue.use(VueAMap)
+Vue.config.productionTip = false;
+VueAMap.initAMapApiLoader({
+  key: '556bf5369f5ae314deff161dacca8670',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView',
+    'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor',
+    'AMap.CircleEditor', 'AMap.Geolocation']
+});
+
 // 全局button的组件标签
 Vue.component(Button.name, Button)
 

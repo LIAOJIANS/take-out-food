@@ -1,28 +1,28 @@
 <template>
   <footer class="footer_guide border-1px">
     <div class="guide_item" @click="goto('/msite')" :class="{on:'/msite' === $route.path}">
-    <span class="item_icon">
-    <i class="iconfont icon-food"></i>
-    </span>
-      <span>首页</span>
+      <span class="item_icon">
+      <i class="iconfont icon-food"></i>
+      </span>
+        <span>首页</span>
     </div>
     <div class="guide_item" @click="goto('/search')" :class="{on:'/search' === $route.path}">
-    <span class="item_icon">
-    <i class="iconfont icon-search"></i>
-    </span>
+      <span class="item_icon">
+      <i class="iconfont icon-search"></i>
+      </span>
       <span>搜索</span>
     </div>
     <div class="guide_item" @click="goto('/order')" :class="{on:'/order' === $route.path}">
-    <span class="item_icon">
-    <i class="iconfont icon-single"></i>
-    </span>
-      <span>订单</span>
+      <span class="item_icon">
+      <i class="iconfont icon-single"></i>
+      </span>
+        <span>订单</span>
     </div>
     <div class="guide_item" @click="goto('/profile')" :class="{on:'/profile' === $route.path}">
-    <span class="item_icon">
-    <i class="iconfont icon-user"></i>
-    </span>
-      <span>我的</span>
+      <span class="item_icon">
+      <i class="iconfont icon-user"></i>
+      </span>
+        <span>我的</span>
     </div>
   </footer>
 </template>

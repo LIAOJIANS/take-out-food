@@ -12,6 +12,7 @@ Vue.use(VueRouter)
 // const Msite () => import('../pages/MSite/MSite.vue')
 // 以下路由板块少，不需要路由懒加载，浪费请求
 import Msite from '../pages/MSite/MSite.vue'
+import Localhost from '../pages/Localhost/Localhost.vue'
 import Order from '../pages/Order/Order.vue'
 import Profile from '../pages/Profile/Profile.vue'
 import Search from '../pages/Search/Search.vue'
@@ -22,11 +23,15 @@ import ShopRatings from '../pages/Shop/ShopRatings/ShopRatings.vue'
 import ShopInfo from '../pages/Shop/ShopInfo/ShopInfo.vue'
 import UserInfo from '../pages/UserInfo/UserInfo.vue'
 import OrderForGoods from '../pages/OrderForGoods/OrderForGoods.vue'
+import Integral from '../pages/Integral/Integral.vue'
+import MembershipCard from '../pages/MembershipCard/MembershipCard.vue'
+import ServiceCentre from '../pages/ServiceCentre/ServiceCentre.vue'
 // 暴露路由
 export default new VueRouter ({
   routes:[
     { path: '/', redirect: '/msite' },
-    { path: "/msite", component: Msite, meta:{ FootShow: true } },
+    { path: '/localhost', component: Localhost },
+    { path: "/msite", component: Msite, meta:{ FootShow: true, localhostShow: true } },
     { path: '/order', component: Order, meta:{ FootShow: true } },
     { path: '/profile', component: Profile, meta:{ FootShow: true } },
     { path: '/search', component: Search, meta:{ FootShow: true } },
@@ -50,6 +55,9 @@ export default new VueRouter ({
         }
       ], },
     { path: '/userinfo', component: UserInfo },
-    { path: '/orderforgoods', component: OrderForGoods }
+    { path: '/orderforgoods', component: OrderForGoods },
+    { path: '/integral', component: Integral },
+    { path: '/membershipcard', component: MembershipCard },
+    { path: '/servicecentre', component: ServiceCentre }
   ]
 })

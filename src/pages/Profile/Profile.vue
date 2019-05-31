@@ -41,7 +41,7 @@
         </section>
         <section class="profile_my_order border-1px">
           <!-- 我的订单 -->
-          <a href='javascript:' class="my_order">
+          <a href='javascript:' class="my_order" @click="$router.push({ path: '/order' })">
           <span>
             <i class="iconfont icon-dingdan"></i>
           </span>
@@ -57,7 +57,7 @@
           <span>
             <i class="iconfont icon-jifen"></i>
           </span>
-            <div class="my_order_div">
+            <div class="my_order_div" @click="$router.push({ path: '/integral' })">
               <span>积分商城</span>
               <span class="my_order_icon">
               <i class="iconfont icon-previewright"></i>
@@ -69,15 +69,15 @@
           <span>
             <i class="iconfont icon-viptehuishiduan"></i>
           </span>
-            <div class="my_order_div">
-              <span>Mint外卖会员卡</span>
+            <div class="my_order_div" @click="$router.push({ path: '/membershipcard' })">
+              <span>学院外卖会员卡</span>
               <span class="my_order_icon">
               <i class="iconfont icon-previewright"></i>
             </span>
             </div>
           </a>
         </section>
-        <section class="profile_my_order border-1px">
+        <section class="profile_my_order border-1px" @click="$router.push({ path: '/servicecentre' })">
           <!-- 服务中心 -->
           <a href="javascript:" class="my_order">
           <span>
@@ -188,7 +188,7 @@
         .user-info {
           float: left;
           margin-top: 8px;
-          margin-left: 15px;
+          margin-left: 22px;
           p {
             font-weight: 700;
             font-size: 18px;
@@ -203,13 +203,16 @@
               width: 20px;
               height: 20px;
               .icon-mobile {
-                font-size: 30px;
+                font-size: 22px;
                 vertical-align: text-top;
               }
             }
             .icon-msnui-tel {
               font-size: 14px;
               color: #fff;
+            }
+            .icon-mobile-number {
+              font-size: 16px;
             }
           }
         }

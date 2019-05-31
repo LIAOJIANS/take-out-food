@@ -3,6 +3,7 @@
     <!-- 插槽是父组件与子组件的通讯方式，子组件中的slot可以显示父组件传递给子组件的内容 -->
     <slot name="left"></slot>
     <span class="header_title">
+      <i class="localhost iconfont icon-building-small" v-show="$route.meta.localhostShow" @click="$router.push({ path: '/localhost' })"></i>
       <span class="header_title_text ellipsis">{{ title }}</span>
     </span>
     <slot name="right"></slot>
@@ -51,6 +52,14 @@ export default {
         font-size: 20px;
         color: #ffffff;
         display: block;
+      }
+      .localhost {
+        color: #fff;
+        font-size: 12px;
+        line-height: 20px;
+        margin-right: 5px;
+        position: absolute;
+        left: -15px;
       }
     }
     .header_login {
