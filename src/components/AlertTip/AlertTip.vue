@@ -16,7 +16,6 @@ export default {
   props: {
     alertText: String
   },
-
   methods: {
     closeTip () {
       // 分发自定义事件(事件名: closeTip)

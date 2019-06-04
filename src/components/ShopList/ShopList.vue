@@ -33,7 +33,8 @@
               <p class="shop_delivery_msg">
                 <span>¥{{shop.float_minimum_order_amount}}起送</span>
                 <span class="segmentation">/</span>
-                <span>配送费约¥{{shop.float_delivery_fee}}</span>
+                <!--float_delivery_free-->
+                <span>配送费约¥{{shop.float_delivery_free}}</span>
               </p>
             </section>
           </div>

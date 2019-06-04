@@ -6,19 +6,35 @@
     </div>
     <div class="button">
       <input class="firendPay" type="button" value="找人付">
-      <input class="myPay" type="button" value="自己付">
+      <input class="myPay" type="button" value="自己付" @click="showAlert">
     </div>
+    <AlertTip :alertText = alertText v-show="alertShow" @closeTip="closeTip"/>
   </div>
 </template>
 
 <script>
     import { mapGetters } from 'vuex'
+    import AlertTip from '../AlertTip/AlertTip.vue'
     export default {
       props: {
-        isShowBGC : Number
+        isShowBGC : Number,
+        alertShow: false,
+        alertText : ""
       },
       data() {
         return {
+        }
+      },
+      methods: {
+        closeTip() {
+          this.alertShow = false
+          this.alertText = ""
+          const isShowBGC  = this.isShowBGC
+          this.$router.push({ name: "order", params: { isShowBGC } })
+        },
+        showAlert() {
+          this.alertShow = true
+          this.alertText = "支付成功"
         }
       },
        computed: {
@@ -31,7 +47,10 @@
              return totalPrice  - 1.5
            }
          }
-       }
+       },
+      components: {
+        AlertTip
+      }
     }
 </script>
 

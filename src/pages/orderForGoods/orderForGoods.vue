@@ -16,7 +16,7 @@
           <div class="left">
            <p class="time">
              <span>立即送出</span>
-             <span>大约<span><span v-if="this.h < 10">0</span>{{ H }}</span>:<span><span v-if="this.M < 10">0</span>{{ M }}</span>送达</span>
+             <span>大约<span><span v-if="this.H < 10">0</span>{{ H }}</span>:<span><span v-if="this.M < 10">0</span>{{ M }}</span>送达</span>
            </p>
             <p class="iconfont icon-arrow-right"></p>
           </div>
@@ -48,6 +48,7 @@
           // 三十分钟后送达
           this.M = m + 30
           this.H = h
+          console.log(h)
           // 如果分位超过60则让他本身减去60的绝对值
           if( this.M > 60 ) {
             this.H++

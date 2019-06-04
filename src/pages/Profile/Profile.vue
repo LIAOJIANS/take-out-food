@@ -52,6 +52,18 @@
             </span>
             </div>
           </a>
+          <!--我要接单-->
+          <a href='javascript:' class="my_order" @click="$router.push({ path: '/receipt' })">
+          <span>
+            <i class="jie iconfont icon-single"></i>
+          </span>
+            <div class="my_order_div">
+              <span>我要接单</span>
+              <span class="my_order_icon">
+              <i class="iconfont icon-previewright"></i>
+            </span>
+            </div>
+          </a>
           <!-- 积分商城 -->
           <a href='javascript:' class="my_order">
           <span>
@@ -322,6 +334,9 @@
           >.iconfont {
             margin-left: -10px;
             font-size: 23px;
+          }
+          .jie {
+            color: #00a0dc;
           }
           .icon-dingdan {
             color: #02a774;

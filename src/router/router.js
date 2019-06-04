@@ -26,13 +26,14 @@ import OrderForGoods from '../pages/OrderForGoods/OrderForGoods.vue'
 import Integral from '../pages/Integral/Integral.vue'
 import MembershipCard from '../pages/MembershipCard/MembershipCard.vue'
 import ServiceCentre from '../pages/ServiceCentre/ServiceCentre.vue'
+import Receipt from '../pages/Receipt/Receipt.vue'
 // 暴露路由
 export default new VueRouter ({
   routes:[
     { path: '/', redirect: '/msite' },
     { path: '/localhost', component: Localhost },
     { path: "/msite", component: Msite, meta:{ FootShow: true, localhostShow: true } },
-    { path: '/order', component: Order, meta:{ FootShow: true } },
+    { path: '/order', component: Order, meta:{ FootShow: true }, name: 'order' },
     { path: '/profile', component: Profile, meta:{ FootShow: true } },
     { path: '/search', component: Search, meta:{ FootShow: true } },
     { path: '/login', component: Login },
@@ -58,6 +59,7 @@ export default new VueRouter ({
     { path: '/orderforgoods', component: OrderForGoods },
     { path: '/integral', component: Integral },
     { path: '/membershipcard', component: MembershipCard },
-    { path: '/servicecentre', component: ServiceCentre }
+    { path: '/servicecentre', component: ServiceCentre },
+    { path: '/receipt', component: Receipt }
   ]
 })

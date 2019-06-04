@@ -127,8 +127,6 @@
       },
       computed: {
         ...mapState(['goods']),
-
-
         currentIndex () {
           // 得到条件数据
           const {scrollY, tops} = this;

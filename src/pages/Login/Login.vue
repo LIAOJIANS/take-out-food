@@ -38,8 +38,8 @@
               </section>
               <section class="login_message">
                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha" ref="captcha">
-                <!--<img class="get_verification" src="http://110.64.211.210/takeout/waimaiapi/index2/login_pwd/getcaptcha" alt="captcha" @click="getCaptcha" ref="captcha">-->
+                <!--<img class="get_verification" src="http://localhost:4000/captcha" alt="captcha" @click="getCaptcha" ref="captcha">-->
+                <img class="get_verification" src="http://110.64.211.210/takeout/waimaiapi/home/getcaptcha" alt="captcha" @click="getCaptcha" ref="captcha">
               </section>
             </section>
           </div>
@@ -162,8 +162,8 @@ export default {
       }
     },
     getCaptcha() {
-      this.$refs.captcha.src = "http://localhost:4000/captcha?" + Date.now();
-      // this.$refs.captcha.src = "http://110.64.211.210/takeout/waimaiapi/index2/login_pwd/getcaptcha?" + Date.now();
+      // this.$refs.captcha.src = "http://localhost:4000/captcha?" + Date.now();
+      this.$refs.captcha.src = "http://110.64.211.210/takeout/waimaiapi/home/getcaptcha?" + Date.now();
     }
   },
   components: {

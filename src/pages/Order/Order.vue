@@ -7,11 +7,32 @@
           <h3>登录后查看外卖订单</h3>
           <button @click="goProfile('/login')">立即登陆</button>
         </section>
-        <section class="order_no_login"  v-show="!showOrder">
-          <img src="./images/order/person.png">
-          <h3>一个订单都没有喔~</h3>
-          <button @click="goProfile('/msite')">去逛逛</button>
-        </section>
+        <div class="div" v-show="!showOrder">
+          <section class="order_no_login"  v-if="cartFoods.length == 0" >
+            <img src="./images/order/person.png">
+            <h3>一个订单都没有喔~</h3>
+            <button @click="goProfile('/msite')">去逛逛</button>
+          </section>
+          <section class="order_login" v-else>
+            <div class="goodList">
+              <ul>
+                <li>
+                  <div class="item">
+                    <div class="goodImg">
+                      <img v-lazy="cartFoods[0].image" alt="">
+                      <div class="name">
+                        <p v-for="(food, index) in cartFoods" :key="index">{{food.name }} × {{ food.count }}</p>
+                      </div>
+                    </div>
+                    <p>已付款</p>
+                  </div>
+                  <p class="addr" v-if="isShowBGC == 0">外卖将在30分钟后到达您宿舍</p>
+                  <p class="addr" v-else>请您到农工商四饭摊位凭单号：26222领取</p>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
       </section>
     </div>
 </template>
@@ -21,14 +42,15 @@
   export default {
     data() {
       return {
-        showOrder: true
+        showOrder: true,
+        isShowBGC: this.$route.params.isShowBGC
       }
     },
     mounted() {
      this._ShowOrder()
     },
     computed: {
-      ...mapState(['userInfo'])
+      ...mapState(['userInfo', 'cartFoods'])
     },
     methods: {
       _ShowOrder() {
@@ -80,6 +102,50 @@
           transform: translate(-50%, -50%);
           width: 30%;
           color: #fff;
+        }
+      }
+      .order_login {
+        padding-top: 50px;
+        width: 100%;
+        .goodList {
+          ul {
+            li {
+              padding: 10px 5px;
+              background-color: #f8f8f8;
+              .item {
+                display: flex;
+                justify-content: space-between;
+                .goodImg {
+                  img {
+                    max-width: 60px;
+                    max-height: 65px;
+                    min-width: 60px;
+                    min-height: 65px;
+                  }
+                  .name {
+                    float: right;
+                    margin-left: 10px;
+                  }
+                  p{
+                    margin: 3px 0;
+                    font-size: 12px;
+                    color: #939393;
+                  }
+                  .number {
+                    font-size: 14px;
+                    color: #02a774;
+                  }
+                }
+              }
+              .addr {
+                text-align: right;
+                font-size: 12px;
+              }
+            }
+            li:nth-of-type(2) {
+              margin-top: 5px;
+            }
+          }
         }
       }
       .order_no_login {
