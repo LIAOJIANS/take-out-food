@@ -5,6 +5,7 @@
         <!-- 菜单对应的是食物分类列表-->
         <ul>
           <!--current-->
+          <!--<li>{{ id }}</li>-->
           <li class="menu-item" v-for="(good, index) in goods" :class="{ current: index===currentIndex}"  @click="clickMenuItem(index)"  :key="index">
             <span class="text">
               <img class="icon" :src="good.icon" v-if="good.icon">
@@ -65,11 +66,23 @@
         }
       },
       mounted() {
-        this.$store.dispatch("getShopGoods", () => {  // 数据更新后执行
-          this.$nextTick(() => { // 列表更新后执行
-            this._initScroll();
-            this.initTops();
-          });
+        // alert(id)
+        const id = this.id
+        // this.$store.dispatch("getShopGoods", () => {  // 数据更新后执行
+        //   this.$nextTick(() => { // 列表更新后执行
+        //     this._initScroll();
+        //     this.initTops();
+        //   });
+        // } );
+        // alert(this.id);
+        this.$store.dispatch("getShopGoods",{  // 数据更新后执行
+            callback: () => {
+              this.$nextTick(() => { // 列表更新后执行
+                this._initScroll();
+                this.initTops();
+              });
+            },
+            id: id
         });
       },
       methods: {
@@ -126,7 +139,7 @@
         }
       },
       computed: {
-        ...mapState(['goods']),
+        ...mapState(['goods', 'id']),
         currentIndex () {
           // 得到条件数据
           const {scrollY, tops} = this;

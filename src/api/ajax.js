@@ -2,7 +2,7 @@
 ajax 请求函数模块
 */
 import axios from 'axios'
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 /**
  * 向外部暴漏一个函数 ajax
  * @param {*} url 请求路径，默认为空

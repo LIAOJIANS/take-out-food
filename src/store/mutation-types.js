@@ -19,3 +19,5 @@ export const CLEAR_CAR = 'clear_car' // 清空购物车
 
 export const RECEIVE_SEARCH_SHOP = 'receive_search_shop' // 接收搜索商品数组
 
+export const UPDATA_SHOPS_ID = 'updata_shops_id' // 接收商家ID
+

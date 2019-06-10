@@ -1,7 +1,8 @@
 <template>
   <div class="shop_container">
     <ul class="shop_list" v-if="shops.length">
-      <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index" @click="$router.push('/shop')">
+      <!--$router.push('/shop')-->
+      <li class="shop_li border-1px" v-for="(shop,index) in shops" :key="index" @click="go_shops(shop.id)">
         <a>
           <div class="shop_left">
             <img class="shop_img" v-lazy="baseImgUrl + shop.image_path">
@@ -60,6 +61,14 @@ export default {
   },
   created() {
     // console.log(shops)
+  },
+  methods: {
+    go_shops(id) {
+      // alert(id){ name: "order", params: { isShowBGC } }
+      // this.$router.push({ name: "shop", params: { id } })
+      this.$router.push({path: '/shop/goods'})
+      this.$store.dispatch("updataShopId", id)
+    }
   },
   components: {
     Star

@@ -15,7 +15,8 @@ import  {
   DECREMENT_FOOD_COUNT,
   CLEAR_CAR,
   RECEIVE_SEARCH_SHOP,
-  MONI_TEXT
+  MONI_TEXT,
+  UPDATA_SHOPS_ID
 } from './mutation-types'
 export default {
   [RECEIVE_ADDRESS] (state, {address}) {
@@ -40,6 +41,9 @@ export default {
   [RECEIVE_GOODS] (state, {goods}) {
     state.goods = goods
   },
+  [UPDATA_SHOPS_ID] (state, {id}) {
+    state.id = id
+  },
   [RECEIVE_RATINGS] (state, {ratings}) {
     state.ratings = ratings
   },
@@ -58,7 +62,7 @@ export default {
     if(food.count) {
       food.count--;
       if(food.count === 0 ) {
-        state.cartFoods.slice(state.cartFoods.indexOf(food), 1)
+        state.cartFoods.splice(state.cartFoods.indexOf(food), 1)
       }
     }
   },

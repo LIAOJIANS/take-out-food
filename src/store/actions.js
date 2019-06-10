@@ -15,7 +15,8 @@ import  {
   DECREMENT_FOOD_COUNT,
   CLEAR_CAR,
   RECEIVE_SEARCH_SHOP,
-  MONI_TEXT
+  MONI_TEXT,
+  UPDATA_SHOPS_ID
 } from './mutation-types'
 
 import {
@@ -119,13 +120,20 @@ export default  {
   },
 
   // 异步获取商品数据
-  async getShopGoods({commit}, callback) {
-    const result = await reqShopGoods();
+  async getShopGoods({commit}, data) {
+    const callback = data.callback;
+    const id = data.id;
+    const result = await reqShopGoods(id);
     if(result.code === 0) {
       const goods = result.data;
       commit(RECEIVE_GOODS, {goods});
       callback && callback();
     }
+  },
+
+  // 更新商家ID
+  updataShopId({commit}, id) {
+    commit(UPDATA_SHOPS_ID, {id})
   },
 
   // 同步更新count值
@@ -147,8 +155,8 @@ export default  {
     const geohash = state.latitude + ',' + state.longitude
     const result = await reqSearchShop(geohash, keyword);
     if(result.code === 0) {
-      const searchShops = result.data;
-      commit(RECEIVE_SEARCH_SHOP, {searchShops});
+      const searchShops = result.data
+      commit(RECEIVE_SEARCH_SHOP, {searchShops})
     }
   },
 }

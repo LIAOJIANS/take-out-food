@@ -9,7 +9,7 @@
       <ul class="list_container">
         <!--:to="'/shop?id='+item.id"-->
         <router-link :to="{path:'/shop', query:{id:item.id}}" tag="li"
-                     v-for="item in searchShops" :key="item.id" class="list_li">
+                     v-for="(item,index) in searchShops" :key="index" class="list_li">
           <section class="item_left">
             <img :src="imgBaseUrl + item.image_path" class="restaurant_img">
           </section>
@@ -18,8 +18,8 @@
               <p>
                 <span>{{item.name}}</span>
               </p>
-              <p>月售 {{item.month_sales||item.recent_order_num}} 单</p>
-              <p>{{item.delivery_fee||item.float_minimum_order_amount}} 元起送 / 距离{{item.distance}}</p>
+              <!--<p>月售 {{item.month_sales||item.recent_order_num}} 单</p>-->
+              <!--<p>{{item.delivery_fee||item.float_minimum_order_amount}} 元起送 / 距离{{ item.distance }}</p>-->
             </div>
           </section>
         </router-link>

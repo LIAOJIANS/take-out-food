@@ -12,7 +12,7 @@
           <span class="content-tag">
             <span class="mini-tag">品牌</span>
           </span>
-          <span class="content-name">{{info.name}}</span>
+          <span class="content-name">{{ shopName }}</span>
           <i class="content-icon"></i>
         </h2>
         <div class="shop-message">
@@ -46,7 +46,7 @@
             <span class="content-tag">
               <span class="mini-tag">品牌</span>
             </span>
-            <span class="content-name">{{info.name}}</span>
+            <span class="content-name">{{shopName}}</span>
           </h2>
           <ul class="brief-modal-msg">
             <li>
@@ -114,10 +114,20 @@
         supportClasses: ['activity-green', 'activity-red', 'activity-orange'],
         supportShow: false,
         shopShow: false,
+        shopName: ""
       }
     },
+    mounted() {
+      const shops = this.shops
+      shops.forEach((item) => {
+        if(item.id === this.id) {
+          this.shopName = item.name
+        }
+      })
+      // console.log(this.shopName)
+    },
     computed: {
-      ...mapState(['info'])
+      ...mapState(['info','shops','id'])
     },
     methods: {
       toggleSupportShow() {

@@ -40,7 +40,8 @@ export default new VueRouter ({
     { path: '/shop', component: Shop, children: [
         {
           path: '/shop/goods',
-          component: ShopGoods
+          component: ShopGoods,
+          name: 'shop'
         },
         {
           path: '/shop/info',
@@ -54,7 +55,7 @@ export default new VueRouter ({
           path: '',
           redirect: '/shop/goods'
         }
-      ], },
+      ]},
     { path: '/userinfo', component: UserInfo },
     { path: '/orderforgoods', component: OrderForGoods },
     { path: '/integral', component: Integral },
